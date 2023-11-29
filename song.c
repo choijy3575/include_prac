@@ -5,6 +5,7 @@
 struct music {
     char name[10];
     double Hz;
+    
 };
 
 int main() {
@@ -18,33 +19,40 @@ int main() {
         {"B", 1975.533}
     };
 
-    char input[10];
-    double output[100000];
+    char input[1000];
+    double output[100];
     int a = 0, i = 0;
+    int seconds; 
+    double output_seconds[100];
 
 while (1) {
-	printf("¿¬ÁÖÇÏ°í ½ÍÀº À½À» ÀÔ·ÂÇØÁÖ¼¼¿ä! (C,D,E,F,G,A,B)\n ´Ù ÀÔ·ÂÇÏ¼Ì´Ù¸é play¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!\n");
+	printf("ì—°ì£¼í•˜ê³  ì‹¶ì€ ìŒê³¼ ê¸¸ì´ë¥¼  ì…ë ¥í•´ì£¼ì„¸ìš”!(ì‹œê°„ì€ 1000~4000) (C,D,E,F,G,A,B)\n ë‹¤ ì…ë ¥í•˜ì…¨ë‹¤ë©´ playë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!\n");
 	scanf("%s", input);
 	
-	if(strcmp(input,"play")==0){
+	
+	if(strcmp(input, "play")==0){
+			
 		break;
 	}
+	
+	scanf(" %d",&seconds); 
+	
 	
 	for(i=0;i<7;i++){
 		if(strcmp(input,notes[i].name)==0){
 			output[a] = notes[i].Hz;
-			a++
+			output_seconds[a] = seconds;
+			a++;
 		}
 	}
 }
 		
- printf("³ë·¡¸¦ Àç»ıÇÏ°Ú½À´Ï´Ù\n");
+ printf("ë…¸ë˜ë¥¼ ì¬ìƒí•˜ê² ìŠµë‹ˆë‹¤\n");
         Sleep(100); // millisecond delay
         for (i = 0; i < a; i++) {
-            Beep((DWORD)output[i], 500); // Beep function with frequency and duration
+            Beep((DWORD)output[i], (DWORD)output_seconds[i]); // Beep function with frequency and duration
             
         }
     
     return 0;
 }
-
