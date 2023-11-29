@@ -1,0 +1,36 @@
+프로그램설명
+역할
+어떻게 합쳤는지
+합치는 과정에서 어려움
+느낀점
+
+바꿀지 안바꿀지 입력받음
+편집할 순서입력받기
+바꿀음 입력받기
+그 후 다시 바꿀지 안바꿀지 입력
+반복
+
+printf("다른음을 바꾸시겠습니까? 1.예 2.아니요");
+	scanf("%d",&ans);
+	printf("편집할 순서의 번호를 입력하세요: ");
+	scanf("%d",&j);
+	printf("바꿀 음을 입력해주세요.: ");
+	scanf("%s",changedmusic);
+	input[j]=changedmusic;	
+	}
+
+
+int sum(int x,int y){
+		return x+y;
+	}
+
+main(){
+	int a,b;
+
+	printf("입력하세요");
+	scanf("%d %d",&a,&b);
+	
+	
+	printf("%d",sum(a,b));
+	
+}

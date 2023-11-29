@@ -1,0 +1,5 @@
+ printf("음악을 편집? 1.예 2.아니오");
+	scanf("%d",&ans);
+	
+	if(ans==1){
+		change();
