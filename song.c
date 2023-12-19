@@ -9,6 +9,10 @@ struct music {
 };
 
 int main() {
+	
+	FILE* pFile=fopen("include.txt","w");
+	
+	
     struct music notes[] = {
         {"C", 1046.502},
         {"D", 1108.731},
@@ -28,7 +32,7 @@ int main() {
 while (1) {
 	printf("연주하고 싶은 음과 길이를  입력해주세요!(시간은 1000~4000) (C,D,E,F,G,A,B)\n 다 입력하셨다면 play를 입력해주세요!\n");
 	scanf("%s", input);
-	
+	fprintf(pFile, "%s\n", input);
 	
 	if(strcmp(input, "play")==0){
 			
@@ -36,7 +40,9 @@ while (1) {
 	}
 	
 	scanf(" %d",&seconds); 
-	
+	fprintf(pFile, "%d\n", seconds);
+
+
 	
 	for(i=0;i<7;i++){
 		if(strcmp(input,notes[i].name)==0){
