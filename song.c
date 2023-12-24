@@ -61,9 +61,9 @@ int main() {
     pFile = fopen("include.txt", "r");
     int i;
     for (i = 0; fscanf(pFile, "%s %d", notes[i].name, &notes[i].time) != EOF; i++) {
-        // 파일에서 음계와 시간을 읽어옴
+        
     }
-    line = i; // 읽어온 라인 수 저장
+    line = i; 
     fclose(pFile);
 
     printf("노래를 재생하겠습니다\n");
@@ -76,7 +76,7 @@ int main() {
                 break;
             }
         }
-        Sleep(100); // 각 음계 재생 후 정해진 시간만큼 기다림
+        Sleep(100); 
     }
 
     return 0;
