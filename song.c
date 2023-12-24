@@ -1,88 +1,83 @@
 #include <stdio.h>
 #include <windows.h>
 #include <string.h>
-#include <memory.h>
 #define MAX_LEN 100
+#define MAX_LINES 100
 
 struct music {
     char name[10];
     double Hz;
-    
+    int time;
 };
 
 int main() {
-	
-	
     struct music notes[] = {
-        {"C", 1046.502},
-        {"D", 1174.659},
-        {"E", 1318.510},
-        {"F", 1396.913},
-        {"G", 1567.982},
-        {"A", 1760.000},
-        {"B", 1975.533}
+        {"C", 1046.502, 0},
+        {"D", 1174.659, 0},
+        {"E", 1318.510, 0},
+        {"F", 1396.913, 0},
+        {"G", 1567.982, 0},
+        {"A", 1760.000, 0},
+        {"B", 1975.533, 0}
     };
 
-    char input[1000];
-    double output[100];
-    int a = 0, i = 0;
-    int seconds; 
-    double output_seconds[100];
-    int q;
-    FILE*pFile;
+    int line = 0;
+    FILE *pFile;
+
     printf("[1]새 곡 만들기\n[2]곡 추가하기\n");
-    scanf("%d",&q);
-        if(q==1){
-               pFile=fopen("include.txt","w"); 
+    int q;
+    scanf("%d", &q);
+
+    if (q == 1) {
+        pFile = fopen("include.txt", "w");
+    } else if (q == 2) {
+        pFile = fopen("include.txt", "a");
+    }
+
+    while (1) {
+        printf("연주하고 싶은 음을 입력해주세요! (C,D,E,F,G,A,B)\n다 입력하셨다면 'play'를 입력해주세요!\n");
+        char input[MAX_LEN];
+        scanf("%s", input);
+        if (strcmp(input, "play") == 0) {
+            break;
         }
-        if(q==2){
-                pFile=fopen("include.txt","a");
+        printf("연주할 시간(0~4000)을 입력해주세요!\n");
+        int time;
+        scanf("%d", &time);
+
+        int i;
+        for (i = 0; i < 7; i++) {
+            if (strcmp(input, notes[i].name) == 0) {
+                fprintf(pFile, "%s %d\n", input, time);
+                break;
+            }
         }
-while (1) {
-	printf("연주하고 싶은 음과 길이를  입력해주세요!(시간은 0~4000) (C,D,E,F,G,A,B)\n 다 입력하셨다면 play를 입력해주세요!\n");
-	scanf("%s", input);
-	if(strcmp(input, "play")==0){
-			
-		break;
-	}
-	fprintf(pFile, "%s\n", input);
-
-	scanf("%d",&seconds); 
-
-	fprintf(pFile, "%d\n", seconds);
-
-	for(i=0;i<7;i++){
-		if(strcmp(input,notes[i].name)==0){
-			output[a] = notes[i].Hz;
-			output_seconds[a] = seconds;
-			a++;
-		}
-	}
-}
-	fclose(pFile);
-	pFile= fopen("include.txt", "r");
-	char str[MAX_LEN];
-	memset(str,0,MAX_LEN);
-	while (feof(pFile)==0){
-	memset(str,0,MAX_LEN);
-	fgets(str,MAX_LEN,pFile);
-	printf("%s",str);
-
-
-}
-fclose(pFile);
-
-printf("노래를 재생하겠습니다\n");
-        Sleep(100); 
-        for (i = 0; i < a; i++) {
-            Beep((DWORD)output[i], (DWORD)output_seconds[i]); 
-            
+        if (i == 7) {
+            printf("올바른 음을 입력해주세요!\n");
         }
-    
+    }
+    fclose(pFile);
+
+    pFile = fopen("include.txt", "r");
+    int i;
+    for (i = 0; fscanf(pFile, "%s %d", notes[i].name, &notes[i].time) != EOF; i++) {
+        // 파일에서 음계와 시간을 읽어옴
+    }
+    line = i; // 읽어온 라인 수 저장
+    fclose(pFile);
+
+    printf("노래를 재생하겠습니다\n");
+    Sleep(100);
+    for (i = 0; i < line; i++) {
+        int j;
+        for (j = 0; j < 7; j++) {
+            if (strcmp(notes[i].name, notes[j].name) == 0) {
+                Beep((DWORD)notes[j].Hz, (DWORD)notes[i].time);
+                break;
+            }
+        }
+        Sleep(100); // 각 음계 재생 후 정해진 시간만큼 기다림
+    }
+
     return 0;
 }
-}
-
-
-		
-
